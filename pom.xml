@@ -31,6 +31,7 @@
         <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
         <webjars-jquery.version>2.2.4</webjars-jquery.version>
         <wro4j.version>1.8.0</wro4j.version>
+        <selenium.java.version>3.141.59</selenium.java.version>
 
         <!-- Java EE / Java SE dependencies -->
         <tomcat.version>9.0.26</tomcat.version>
@@ -66,6 +67,8 @@
         <!-- Others -->
         <jackson.version>2.10.0</jackson.version>
         <aspectj.version>1.9.4</aspectj.version>
+        <!-- jetty -->
+        <jetty.http.connector>9192</jetty.http.connector>
 
         <!-- Maven plugins -->
         <jetty-maven-plugin.version>9.4.20.v20190813</jetty-maven-plugin.version>
@@ -268,7 +271,18 @@
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
             <scope>test</scope>
-        </dependency>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-chrome-driver</artifactId>
+                <version>${selenium.java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.java.version}</version>
+                <scope>test</scope>
+            </dependency>
 
         <!-- JAXB and Activation added for Java 9 compatibility.
              The JAXB API is considered to be Java EE API and therefore is
@@ -448,6 +462,19 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty-maven-plugin.version}</version>
+                <configuration>
+                    <httpConnector>
+                        <port>
+                            ${jetty.http.connector}
+                        </port>
+                    </httpConnector>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
+                    <stopKey>SierraTangoOscarPapaPapa</stopKey>
+                    <stopPort>19966</stopPort>
+                    <stopWait>20</stopWait>
+                </configuration>
             </plugin>
 
             <plugin>
